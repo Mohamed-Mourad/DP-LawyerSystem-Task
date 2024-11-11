@@ -5,26 +5,64 @@ using System.Threading.Tasks;
 [Route("api/[controller]")]
 public class SubscriptionController : ControllerBase
 {
-    private readonly NotificationService _notificationService;
+    private readonly SubscriptionService _subscriptionService;
 
-    public SubscriptionController(NotificationService notificationService)
+    public SubscriptionController(SubscriptionService subscriptionService)
     {
-        _notificationService = notificationService;
+        _subscriptionService = subscriptionService;
     }
 
-    // API to subscribe/unsubscribe users
-    [HttpPost("subscribe")]
-    public async Task<IActionResult> Subscribe([FromBody] SubscriptionDto subscription)
+    [HttpPut("subscribe")]
+    public async Task<IActionResult> Subscribe([FromBody] UserSubscriptionDto subscriptionDto)
     {
-        await _notificationService.SaveSubscription(subscription);
-        return Ok(new { Status = "Subscribed" });
+        if (string.IsNullOrEmpty(subscriptionDto.UserId))
+        {
+            return BadRequest(new { message = "UserId is required." });
+        }
+
+        try
+        {
+            var result = await _subscriptionService.Subscribe(subscriptionDto);
+
+            if (result)
+            {
+                return Ok(new { message = "User subscribed successfully." });
+            }
+            else
+            {
+                return NotFound(new { message = "User not found." });
+            }
+        }
+        catch
+        {
+            return StatusCode(500, new { message = "An error occurred while subscribing the user." });
+        }
     }
 
-    // API to save notifications for offline users
-    [HttpPost("saveNotification")]
-    public async Task<IActionResult> SaveNotification([FromBody] NotificationRequestDto request)
+    [HttpPut("unsubscribe")]
+    public async Task<IActionResult> Unsubscribe([FromBody] UserSubscriptionDto subscriptionDto)
     {
-        await _notificationService.SaveNotificationForOfflineUser(request);
-        return Ok(new { Status = "Notification saved for offline user" });
+        if (string.IsNullOrEmpty(subscriptionDto.UserId))
+        {
+            return BadRequest(new { message = "UserId is required." });
+        }
+
+        try
+        {
+            var result = await _subscriptionService.Unsubscribe(subscriptionDto);
+
+            if (result)
+            {
+                return Ok(new { message = "User unsubscribed successfully." });
+            }
+            else
+            {
+                return NotFound(new { message = "User not found." });
+            }
+        }
+        catch
+        {
+            return StatusCode(500, new { message = "An error occurred while unsubscribing the user." });
+        }
     }
 }
