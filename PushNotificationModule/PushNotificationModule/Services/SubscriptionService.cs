@@ -15,7 +15,7 @@ public class SubscriptionService
 
     public async Task<bool> Subscribe(UserSubscriptionDto subscriptionDto)
     {
-        var user = _context.Users.SingleOrDefault(u => u.UserId == subscriptionDto.UserId);
+        var user = _context.Users.SingleOrDefault(u => u.Id == subscriptionDto.UserId);
 
         if (user != null)
         {
@@ -30,7 +30,7 @@ public class SubscriptionService
 
     public async Task<bool> Unsubscribe(UserSubscriptionDto subscriptionDto)
     {
-        var user = _context.Users.SingleOrDefault(u => u.UserId == subscriptionDto.UserId);
+        var user = _context.Users.SingleOrDefault(u => u.Id == subscriptionDto.UserId);
 
         if (user != null)
         {

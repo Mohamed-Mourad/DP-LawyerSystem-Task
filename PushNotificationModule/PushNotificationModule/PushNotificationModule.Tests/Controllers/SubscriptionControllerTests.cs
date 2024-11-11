@@ -18,7 +18,7 @@ public class SubscriptionControllerTests
     public async Task Subscribe_ValidUserId_ReturnsOk()
     {
         // Arrange
-        var subscriptionDto = new UserSubscriptionDto { UserId = "user1", IsSubscribed = true };
+        var subscriptionDto = new UserSubscriptionDto { UserId = 1, IsSubscribed = true };
         _subscriptionServiceMock.Setup(service => service.Subscribe(subscriptionDto)).ReturnsAsync(true);
 
         // Act
@@ -34,7 +34,7 @@ public class SubscriptionControllerTests
     public async Task Subscribe_UserNotFound_ReturnsNotFound()
     {
         // Arrange
-        var subscriptionDto = new UserSubscriptionDto { UserId = "user1", IsSubscribed = true };
+        var subscriptionDto = new UserSubscriptionDto { UserId = 1, IsSubscribed = true };
         _subscriptionServiceMock.Setup(service => service.Subscribe(subscriptionDto)).ReturnsAsync(false);
 
         // Act
@@ -50,7 +50,7 @@ public class SubscriptionControllerTests
     public async Task Unsubscribe_ValidUserId_ReturnsOk()
     {
         // Arrange
-        var subscriptionDto = new UserSubscriptionDto { UserId = "user1", IsSubscribed = false };
+        var subscriptionDto = new UserSubscriptionDto { UserId = 1, IsSubscribed = false };
         _subscriptionServiceMock.Setup(service => service.Unsubscribe(subscriptionDto)).ReturnsAsync(true);
 
         // Act
@@ -66,7 +66,7 @@ public class SubscriptionControllerTests
     public async Task Unsubscribe_UserNotFound_ReturnsNotFound()
     {
         // Arrange
-        var subscriptionDto = new UserSubscriptionDto { UserId = "user1", IsSubscribed = false };
+        var subscriptionDto = new UserSubscriptionDto { UserId = 1, IsSubscribed = false };
         _subscriptionServiceMock.Setup(service => service.Unsubscribe(subscriptionDto)).ReturnsAsync(false);
 
         // Act

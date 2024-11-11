@@ -15,7 +15,7 @@ public class SubscriptionController : ControllerBase
     [HttpPut("subscribe")]
     public async Task<IActionResult> Subscribe([FromBody] UserSubscriptionDto subscriptionDto)
     {
-        if (string.IsNullOrEmpty(subscriptionDto.UserId))
+        if (string.IsNullOrEmpty(subscriptionDto.UserId.ToString()))
         {
             return BadRequest(new { message = "UserId is required." });
         }
@@ -42,7 +42,7 @@ public class SubscriptionController : ControllerBase
     [HttpPut("unsubscribe")]
     public async Task<IActionResult> Unsubscribe([FromBody] UserSubscriptionDto subscriptionDto)
     {
-        if (string.IsNullOrEmpty(subscriptionDto.UserId))
+        if (string.IsNullOrEmpty(subscriptionDto.UserId.ToString()))
         {
             return BadRequest(new { message = "UserId is required." });
         }

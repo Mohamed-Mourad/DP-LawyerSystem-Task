@@ -1,0 +1,54 @@
+# Ignore Visual Studio temporary files, build results, and
+# common sensitive files
+
+# .NET build artifacts
+bin/
+obj/
+
+# User-specific files
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# .NET Core files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/
+*.sln.iml
+
+# Sensitive configuration files
+appsettings.json
+appsettings.*.json
+dp-lawyersystem-task-firebase-adminsdk-5hxsw-b91df7bc84.json
+
+# Ignore package manager files
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore JetBrains Rider's folders
+.idea/
+.idea/
+
+# Ignore generated files by npm (if you're using it in your project)
+node_modules/
+
+# Ignore any additional sensitive files or temp data
+secrets.json
+*.secret
+
+# Uncomment if you have frontend files in your project
+# /public/
+# /dist/

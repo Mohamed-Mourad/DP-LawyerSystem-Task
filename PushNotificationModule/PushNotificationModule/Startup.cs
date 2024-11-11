@@ -33,7 +33,8 @@ namespace PushNotificationModule
             services.AddScoped<NotificationService>();
             services.AddDbContext<NotificationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSingleton<NotificationService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<SubscriptionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

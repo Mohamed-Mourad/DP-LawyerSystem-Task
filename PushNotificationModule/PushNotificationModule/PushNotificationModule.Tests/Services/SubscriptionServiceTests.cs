@@ -24,11 +24,11 @@ public class SubscriptionServiceTests
     public async Task Subscribe_UserExists_ReturnsTrue()
     {
         // Arrange
-        var user = new User { UserId = "user1", IsSubscribed = false };
+        var user = new User { Id = 1, IsSubscribed = false };
         _dbContextMock.Setup(db => db.Users.SingleOrDefault(It.IsAny<Func<User, bool>>())).Returns(user);
 
         // Act
-        var result = await _subscriptionService.Subscribe(new UserSubscriptionDto { UserId = "user1", IsSubscribed = true });
+        var result = await _subscriptionService.Subscribe(new UserSubscriptionDto { UserId = 1, IsSubscribed = true });
 
         // Assert
         Assert.True(result);
@@ -44,7 +44,7 @@ public class SubscriptionServiceTests
         _dbContextMock.Setup(db => db.Users.SingleOrDefault(It.IsAny<Func<User, bool>>())).Returns((User)null);
 
         // Act
-        var result = await _subscriptionService.Subscribe(new UserSubscriptionDto { UserId = "user1", IsSubscribed = true });
+        var result = await _subscriptionService.Subscribe(new UserSubscriptionDto { UserId = 1, IsSubscribed = true });
 
         // Assert
         Assert.False(result);
@@ -56,11 +56,11 @@ public class SubscriptionServiceTests
     public async Task Unsubscribe_UserExists_ReturnsTrue()
     {
         // Arrange
-        var user = new User { UserId = "user1", IsSubscribed = true };
+        var user = new User { Id = 1, IsSubscribed = true };
         _dbContextMock.Setup(db => db.Users.SingleOrDefault(It.IsAny<Func<User, bool>>())).Returns(user);
 
         // Act
-        var result = await _subscriptionService.Unsubscribe(new UserSubscriptionDto { UserId = "user1", IsSubscribed = false });
+        var result = await _subscriptionService.Unsubscribe(new UserSubscriptionDto { UserId = 1, IsSubscribed = false });
 
         // Assert
         Assert.True(result);
@@ -76,7 +76,7 @@ public class SubscriptionServiceTests
         _dbContextMock.Setup(db => db.Users.SingleOrDefault(It.IsAny<Func<User, bool>>())).Returns((User)null);
 
         // Act
-        var result = await _subscriptionService.Unsubscribe(new UserSubscriptionDto { UserId = "user1", IsSubscribed = false });
+        var result = await _subscriptionService.Unsubscribe(new UserSubscriptionDto { UserId = 1, IsSubscribed = false });
 
         // Assert
         Assert.False(result);
