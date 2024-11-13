@@ -18,7 +18,7 @@ export class AppBarComponent {
 
   toggleSubscription() {
     try {
-      if (this.userSubscription.isSubscribed) {
+      if (this.isSubscribed) {
         this.subscriptionService.unsubscribe(this.userSubscription).subscribe(response => {
           console.log(response);
         });
