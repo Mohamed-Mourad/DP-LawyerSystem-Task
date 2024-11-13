@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid pr-0">
+        <!-- Subsription button -->
+        <button class="btn" 
+            [ngClass]="{'btn-primary': isSubscribed, 'btn-outline-light': !isSubscribed}" 
+            (click)="toggleSubscription()">
+            <i class="bi bi-suit-club-fill"></i> {{ isSubscribed ? 'Subscribed' : 'Subscribe' }}
+        </button>
+      
+        <!-- Notification Icon -->
+        <button class="btn btn-outline-light" type="button">
+            <i class="bi bi-bell-fill"></i>
+        </button>
+    </div>
+</nav>
+  

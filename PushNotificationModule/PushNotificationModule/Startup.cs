@@ -28,6 +28,14 @@ namespace PushNotificationModule
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:4200", "http://localhost:4201") // Adjust this URL based on your Angular setup
+                        .AllowCredentials());
+            });
             services.AddControllers();
             services.AddSignalR();
             services.AddScoped<NotificationService>();
@@ -44,6 +52,8 @@ namespace PushNotificationModule
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
