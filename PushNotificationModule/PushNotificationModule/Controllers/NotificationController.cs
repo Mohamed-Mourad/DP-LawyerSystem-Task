@@ -15,7 +15,7 @@ public class NotificationController : ControllerBase
 
     
     [HttpPost("broadcast")]
-    public async Task<IActionResult> BroadcastNotification([FromBody] Notification notification)
+    public async Task<IActionResult> BroadcastNotification([FromBody] Notifications notification)
     {
         if (notification == null || string.IsNullOrWhiteSpace(notification.Message))
         {
@@ -35,7 +35,7 @@ public class NotificationController : ControllerBase
 
     
     [HttpPost("send")]
-    public async Task<IActionResult> SendMessageToUser([FromQuery] int userId, [FromBody] Notification notification)
+    public async Task<IActionResult> SendMessageToUser([FromQuery] int userId, [FromBody] Notifications notification)
     {
         if (userId <= 0 || notification == null || string.IsNullOrWhiteSpace(notification.Message))
         {

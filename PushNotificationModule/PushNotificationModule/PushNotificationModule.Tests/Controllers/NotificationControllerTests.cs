@@ -29,7 +29,7 @@ public class NotificationControllerTests
     public async Task BroadcastNotification_ReturnsOk_WhenNotificationIsValid()
     {
         // Arrange
-        var notification = new Notification { Message = "Test message" };
+        var notification = new Notifications { Message = "Test message" };
 
         _mockNotificationService
             .Setup(s => s.BroadcastNotification(notification))
@@ -47,7 +47,7 @@ public class NotificationControllerTests
     public async Task SendMessageToUser_ReturnsBadRequest_WhenUserIdIsInvalid()
     {
         // Act
-        var result = await _controller.SendMessageToUser(0, new Notification { Message = "Test" });
+        var result = await _controller.SendMessageToUser(0, new Notifications { Message = "Test" });
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -58,7 +58,7 @@ public class NotificationControllerTests
     public async Task SendMessageToUser_ReturnsOk_WhenDataIsValid()
     {
         // Arrange
-        var notification = new Notification { Message = "Test message" };
+        var notification = new Notifications { Message = "Test message" };
         int userId = 1;
 
         _mockNotificationService

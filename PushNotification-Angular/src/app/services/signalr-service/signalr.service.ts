@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalrService {
   private hubConnection!:  signalR.HubConnection;
+  public notificationReceived = new Subject<{ sender: string, message: string }>();
 
   constructor() { }
 
@@ -23,6 +25,12 @@ export class SignalrService {
   public addSubscriptionListener(): void {
     this.hubConnection.on('ReceiveSubscriptionUpdate', (userId: string, isSubscribed: boolean) => {
       console.log(`User ${userId} subscription status updated: ${isSubscribed}`);
+    });
+  }
+
+  public addBroadCastListener(): void {
+    this.hubConnection.on('ReceiveNotification', (sender: string, message: string) => {
+      this.notificationReceived.next({ sender, message });
     });
   }
 }

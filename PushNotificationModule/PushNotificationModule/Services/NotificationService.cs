@@ -17,7 +17,7 @@ public class NotificationService
         _hubContext = hubContext;
     }
     
-    public async Task BroadcastNotification(Notification notification)
+    public async Task BroadcastNotification(Notifications notification)
     {
         var users = _context.Users.Where(u => u.IsSubscribed).ToList();
         foreach (var user in users)
@@ -27,7 +27,7 @@ public class NotificationService
     }
 
     
-    public async Task SendNotificationToUser(int userId, Notification notification)
+    public async Task SendNotificationToUser(int userId, Notifications notification)
     {
         var user = _context.Users.SingleOrDefault(u => u.Id == userId);
         if(user != null)
@@ -44,15 +44,13 @@ public class NotificationService
     }
 
 
-    private async Task SendNotificationToOnlineUser(int userId, Notification notification)
+    private async Task SendNotificationToOnlineUser(int userId, Notifications notification)
     {
         await _hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", $"You have recieved a notification from", notification.Message);
-        var newNotification = new Notification
+        var newNotification = new Notifications
         {
             UserId = userId,
             Message = notification.Message,
-            CreatedAt = notification.CreatedAt,
-            IsRead = false
         };
 
         _context.Notifications.Add(newNotification);
@@ -60,14 +58,12 @@ public class NotificationService
         
     }
 
-    private async Task StoreNotificationToOfflineUser(int userId, Notification notification)
+    private async Task StoreNotificationToOfflineUser(int userId, Notifications notification)
     {
-        var pendingNotification = new Notification
+        var pendingNotification = new Notifications
         {
             UserId = notification.UserId,
             Message = notification.Message,
-            CreatedAt = notification.CreatedAt,
-            IsRead = false,
         };
 
         _context.PendingNotifications.Add(pendingNotification);
@@ -84,13 +80,11 @@ public class NotificationService
             {
                 await _hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", notification.Message);
 
-                var newNotification = new Notification
+                var newNotification = new Notifications
                 {
                     Id = notification.Id,
                     UserId = userId,
                     Message = notification.Message,
-                    CreatedAt = notification.CreatedAt,
-                    IsRead = false,
                 };
 
                 _context.Notifications.Add(newNotification);

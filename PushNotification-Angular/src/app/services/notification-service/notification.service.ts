@@ -1,4 +1,3 @@
-// services/notification.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +7,7 @@ import { Notification } from '../../models/notification';
   providedIn: 'root',
 })
 export class NotificationService {
-  private apiUrl = 'http://localhost:5001/api/notification';
+  private apiUrl = 'https://localhost:5001/api/notification';
 
   constructor(private http: HttpClient) {}
 

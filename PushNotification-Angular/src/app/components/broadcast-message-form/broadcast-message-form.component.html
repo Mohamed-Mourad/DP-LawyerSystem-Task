@@ -1,22 +1,31 @@
 <div class="container mt-5 pt-4">
     <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-12">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5>Broadcast Message</h5>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="broadcastMessage" class="form-label">Message</label>
-                            <textarea id="broadcastMessage" class="form-control" rows="4" placeholder="Enter your message here..."></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div class="col-lg-6 col-md-8 col-sm-12">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5>Broadcast Message</h5>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="broadcastForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="broadcastMessage" class="form-label">Message</label>
+                <textarea
+                  id="broadcastMessage"
+                  formControlName="message"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Enter your message here..."
+                ></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || !broadcastForm.valid">
+                  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  
