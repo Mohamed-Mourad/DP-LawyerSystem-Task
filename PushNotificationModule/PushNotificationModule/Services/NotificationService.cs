@@ -19,6 +19,7 @@ public class NotificationService
     
     public async Task BroadcastNotification(Notifications notification)
     {
+        await _hubContext.Clients.All.SendAsync("ReceiveNotification", notification.UserId, notification.Message);
         var users = _context.Users.Where(u => u.IsSubscribed).ToList();
         foreach (var user in users)
         {
